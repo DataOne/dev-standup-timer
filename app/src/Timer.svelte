@@ -1,20 +1,24 @@
 <script>
-	export let timerInSeconds;
+	let timerInSeconds = 60;
 	$: timeRemainingInSeconds = timerInSeconds;
 	$: halfOfTimeInSeconds = timerInSeconds / 2;
 	let oldTimerId = -1;
 
 	function startTimer() {
-		clearInterval(oldTimerId);
+		stopTimer();
 		timeRemainingInSeconds = timerInSeconds;
 
 		oldTimerId = setInterval(() => {
 			if (timeRemainingInSeconds === 1) {
-				clearInterval(oldTimerId);
+				stopTimer();
 				blink();
 			}
 			timeRemainingInSeconds -= 1;
 		}, 1000);
+	}
+
+	function stopTimer() {
+		clearInterval(oldTimerId);
 	}
 
 	function blink() {
@@ -26,8 +30,14 @@
 	}
 </script>
 
+Zeit pro Person: <input
+	type="number"
+	bind:value={timerInSeconds}
+	style="width: 55px;"
+/>
+Sekunden<br />
+
 <div class="timer">
-	<i>Timer [s]</i> <br />
 	<input
 		type="text"
 		bind:value={timeRemainingInSeconds}

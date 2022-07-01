@@ -3,8 +3,8 @@
 	import { onMount } from "svelte";
 
 	let developers = [];
+	let checked = {};
 	let devName = "";
-	let timerInSeconds = 60;
 	const storageKey = "developers";
 
 	onMount(() => setDevsFromLocalStorage());
@@ -18,6 +18,7 @@
 	function removeDev(i) {
 		return () => {
 			developers = [...developers.slice(0, i), ...developers.slice(i + 1)];
+			checked = {};
 			saveDevsInLocalStorage();
 		};
 	}
@@ -28,7 +29,11 @@
 
 	function setDevsFromLocalStorage() {
 		const devString = localStorage.getItem(storageKey);
-		developers = devString?.split(";") ?? [];
+		if (devString) {
+			developers = devString.split(";");
+		} else {
+			developers = [];
+		}
 	}
 
 	function sortDevs() {
@@ -36,43 +41,74 @@
 			const j = Math.floor(Math.random() * (i + 1));
 			[developers[i], developers[j]] = [developers[j], developers[i]];
 		}
+		checked = {};
 	}
 </script>
 
 <h1>Developer Stand-Up</h1>
 
-Zeit pro Person:<input
-	type="number"
-	bind:value={timerInSeconds}
-	style="width: 55px;"
-/>
-Sekunden<br />
-
-<Timer {timerInSeconds} />
+<h3>Timer</h3>
+<Timer />
 
 <h3>Teilnehmer</h3>
-<input
-	type="text"
-	placeholder="Name"
-	bind:value={devName}
-	on:keyup={(e) => e.key === 'Enter' && addDev()}
-/>
-<button type="button" on:click={addDev}>➕ Hinzufügen</button>
-<button type="button" on:click={sortDevs}>🔁 Mischen</button>
+<div class="controls">
+	<input
+		type="text"
+		placeholder="Name"
+		bind:value={devName}
+		on:keyup={(e) => e.key === "Enter" && addDev()}
+	/>
+	<div>
+		<button type="button" on:click={addDev}>➕ Hinzufügen</button>
+		<button type="button" on:click={sortDevs}>🔁 Mischen</button>
+	</div>
+</div>
 
 {#each developers as developer, i}
-	<hr />
-	<div>
-		<button type="button" on:click={removeDev(i)} style="border: none;"
-			>❌</button
-		>&nbsp;&nbsp;
-		<div style="width: 200px; display:inline-block;">{developer}</div>
-		<input type="checkbox" />
+	<div class="dev-box {checked[i] ? 'checked-item' : ''}">
+		<div>
+			<input
+				type="checkbox"
+				id="checkbox-{i}"
+				class="clickable"
+				bind:checked={checked[i]}
+			/>
+			<label for="checkbox-{i}" class="dev-name clickable">{developer}</label>
+		</div>
+		<button type="button" on:click={removeDev(i)} style="border: none;">
+			❌
+		</button>
 	</div>
 {/each}
 
 <style>
 	:global(body) {
 		transition: all 250ms;
+	}
+
+	.controls {
+		width: 503px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+
+	.dev-name {
+		display: inline-block;
+		padding: 15px 20px;
+		font-size: 19px;
+	}
+
+	.dev-box {
+		width: 500px;
+		background-color: #ececec;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		border: 0.5px solid #777777;
+		margin: 2px;
+		margin-right: 10px;
+		border-radius: 2px;
 	}
 </style>
