@@ -30,35 +30,56 @@
 	}
 </script>
 
-Zeit pro Person: <input
-	type="number"
-	bind:value={timerInSeconds}
-	style="width: 55px;"
-/>
-Sekunden<br />
+<div class="controls">
+	Zeit pro Person: <input
+		type="number"
+		bind:value={timerInSeconds}
+		style="width: 55px;"
+	/>
+	Sekunden
+</div>
 
-<div class="timer">
-	<input
-		type="text"
-		bind:value={timeRemainingInSeconds}
-		style="width: 133px; height: 95px; text-align: center; font-size: xxx-large; {timeRemainingInSeconds ===
-		0
-			? 'color: red;'
-			: timeRemainingInSeconds <= halfOfTimeInSeconds
-			? 'color: #d7bf22'
-			: ''}"
-		readonly
-	/> <br />
-	<button type="button" on:click={startTimer}>⏱ Timer starten</button>
+<div class="timer-container">
+	<div class="timer">
+		<input
+			type="text"
+			bind:value={timeRemainingInSeconds}
+			class="time"
+			style={timeRemainingInSeconds === 0
+				? "color: red;"
+				: timeRemainingInSeconds <= halfOfTimeInSeconds
+				? "color: #d7bf22"
+				: ""}
+			readonly
+		/>
+		<button type="button" on:click={startTimer}>Timer starten</button>
+	</div>
 </div>
 
 <style>
-	.timer {
-		position: fixed;
-		z-index: 2;
-		right: 10%;
-		top: 15px;
+	.timer-container {
+		margin-top: 40px;
+		margin-right: 25px;
 		padding: 20px;
-		background: #ececec;
+		height: 0;
+		padding-bottom: 56.25%; /* 16:9 */
+		position: relative;
+	}
+
+	.timer {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.time {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		font-size: 18vw;
+		font-family: "DejaVu Sans Mono", "Cascadia Mono", monospace;
+		padding: 0;
 	}
 </style>

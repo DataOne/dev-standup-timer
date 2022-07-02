@@ -11,20 +11,12 @@ body {
 	box-sizing: border-box;
 	font-family: 'Rubik', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	padding: 0 20px;
-	max-width: 2000px;
 }
 
-a {
-	color: rgb(0, 100, 200);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:visited {
-	color: rgb(0, 80, 160);
+h3 {
+	z-index: 2;
+	position: relative;
+	padding-left: 25px;
 }
 
 label {
@@ -41,12 +33,8 @@ textarea {
 	padding: 0.4em;
 	margin: 0;
 	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-}
-
-input:disabled {
-	color: #ccc;
+	border: 1px solid #777;
+	border-radius: 3px;
 }
 
 input[type="checkbox"] {
@@ -63,11 +51,23 @@ input[type="checkbox"] {
 	opacity: 0.75;
 }
 
+.controls {
+	padding: 30px 0;
+	padding-left: 25px;
+	margin-top: -30px;
+	border-bottom: 1px solid #777;
+	box-sizing: border-box;
+}
+
 button {
 	background-color: #ececec;
 	outline: none;
 	cursor: pointer;
 	margin: 0;
+}
+
+button:focus {
+	outline: solid black;
 }
 
 button:disabled {
