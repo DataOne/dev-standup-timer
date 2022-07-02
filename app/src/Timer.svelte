@@ -22,7 +22,7 @@
 	}
 
 	function blink() {
-		document.body.style.backgroundColor = "red";
+		document.body.style.backgroundColor = "#E1325A";
 
 		setTimeout(() => {
 			document.body.style.backgroundColor = "unset";
@@ -46,7 +46,7 @@
 			bind:value={timeRemainingInSeconds}
 			class="time"
 			style={timeRemainingInSeconds === 0
-				? "color: red;"
+				? "color: #E1325A;"
 				: timeRemainingInSeconds <= halfOfTimeInSeconds
 				? "color: #d7bf22"
 				: ""}
@@ -62,7 +62,7 @@
 		margin-right: 25px;
 		padding: 20px;
 		height: 0;
-		padding-bottom: 56.25%; /* 16:9 */
+		padding-bottom: 50%;
 		position: relative;
 	}
 

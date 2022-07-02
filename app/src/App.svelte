@@ -45,7 +45,9 @@
 	}
 </script>
 
-<h1>Developer Stand-Up</h1>
+<div class="header">
+	<h1>Developer Stand-Up</h1>
+</div>
 
 <div class="flex">
 	<div class="column first">
@@ -60,10 +62,12 @@
 			<input
 				type="text"
 				placeholder="Name"
+				class="flex-1"
+				style="margin-right: 2px;"
 				bind:value={devName}
 				on:keyup={(e) => e.key === "Enter" && addDev()}
 			/>
-			<div>
+			<div class="flex-1 flex">
 				<button type="button" on:click={addDev}>Hinzufügen</button>
 				<button type="button" on:click={sortDevs}>Mischen</button>
 			</div>
@@ -97,6 +101,20 @@
 		transition: all 250ms;
 	}
 
+	.header {
+		background-color: #3c3c3c;
+		margin: -20px;
+		color: white;
+		margin-bottom: 10px;
+		margin-top: 0;
+		padding: 15px 20px;
+	}
+
+	.header > h1 {
+		margin: 0;
+		padding: 0;
+	}
+
 	.fixed {
 		position: sticky;
 		top: 0;
@@ -110,6 +128,10 @@
 		flex-direction: row;
 		align-items: stretch;
 		justify-content: space-between;
+	}
+
+	.flex-1 {
+		flex: 1;
 	}
 
 	.column {
