@@ -81,3 +81,25 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+@media(min-width: 750px) {
+	.fixed {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		background-color: #fffffff0;
+		z-index: 1;
+	}
+
+	.mobile-column {
+		flex-direction: row !important;
+	}
+
+	.fixed div.timer-container {
+		margin-right: 25px;
+	}
+
+	.column.first {
+		border-right: 1px solid #ececec;
+	}
+}

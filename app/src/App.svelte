@@ -49,7 +49,7 @@
 	<h1>Developer Stand-Up</h1>
 </div>
 
-<div class="flex">
+<div class="flex mobile-column">
 	<div class="column first">
 		<h3>Timer</h3>
 		<div class="fixed">
@@ -58,7 +58,7 @@
 	</div>
 	<div class="column">
 		<h3>Teilnehmer</h3>
-		<div class="fixed controls flex">
+		<div class="fixed controls flex mobile-column">
 			<input
 				type="text"
 				placeholder="Name"
@@ -67,7 +67,7 @@
 				bind:value={devName}
 				on:keyup={(e) => e.key === "Enter" && addDev()}
 			/>
-			<div class="flex-1 flex">
+			<div class="flex-1 flex mobile-column">
 				<button type="button" on:click={addDev}>Hinzufügen</button>
 				<button type="button" on:click={sortDevs}>Mischen</button>
 			</div>
@@ -101,6 +101,10 @@
 		transition: all 250ms;
 	}
 
+	div.mobile-column {
+		flex-direction: column;
+	}
+
 	.header {
 		background-color: #3c3c3c;
 		margin: -20px;
@@ -113,14 +117,6 @@
 	.header > h1 {
 		margin: 0;
 		padding: 0;
-	}
-
-	.fixed {
-		position: sticky;
-		top: 0;
-		width: 100%;
-		background-color: #fffffff0;
-		z-index: 1;
 	}
 
 	.flex {
@@ -136,10 +132,6 @@
 
 	.column {
 		flex: 1;
-	}
-
-	.column.first {
-		border-right: 1px solid #ececec;
 	}
 
 	.dev-name {
@@ -160,5 +152,9 @@
 		justify-content: space-between;
 		margin-bottom: 10px;
 		border-radius: 3px;
+	}
+
+	.dev-box:last-child {
+		margin-bottom: 100px;
 	}
 </style>
