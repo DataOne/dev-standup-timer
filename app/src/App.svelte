@@ -74,6 +74,10 @@
 		</div>
 
 		<div class="dev-box-container">
+			{#if developers.length === 0}
+				<i>Noch niemanden hinzugefügt.</i>
+			{/if}
+			<div></div>
 			{#each developers as developer, i}
 				<div class="dev-box {checked[i] ? 'checked-item' : ''}">
 					<div>
