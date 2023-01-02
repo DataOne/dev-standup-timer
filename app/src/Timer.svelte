@@ -2,6 +2,7 @@
 	let timerInSeconds = 60;
 	$: timeRemainingInSeconds = timerInSeconds;
 	$: halfOfTimeInSeconds = timerInSeconds / 2;
+	$: tenthOfTimeInSeconds = timerInSeconds / 10;
 	let oldTimerId = -1;
 
 	function startTimer() {
@@ -47,6 +48,8 @@
 			class="time"
 			style={timeRemainingInSeconds === 0
 				? "color: #E1325A;"
+				: timeRemainingInSeconds <= tenthOfTimeInSeconds
+				? "color: orange;"
 				: timeRemainingInSeconds <= halfOfTimeInSeconds
 				? "color: #d7bf22"
 				: ""}
