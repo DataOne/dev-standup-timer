@@ -29,6 +29,12 @@
 		};
 	}
 
+	function clearDevs() {
+		developers = [];
+		checked = {};
+		saveDevsInLocalStorage();
+	}
+
 	function saveDevsInLocalStorage() {
 		localStorage.setItem(storageKey, developers.join(";"));
 	}
@@ -90,13 +96,16 @@
 	</div>
 	<div class="column">
 		<h3>Teilnehmer</h3>
-		<div class="fixed controls flex mobile-column">
+		<div
+			class="fixed controls flex mobile-column"
+			style="padding-bottom: 27px;"
+		>
 			<textarea
 				type="text"
 				placeholder="Name"
 				rows="1"
 				class="flex-1"
-				style="margin-right: 2px; resize: none;"
+				style="margin-right: 2px; resize: none; margin-top: 3px;"
 				title="Namen einzeln eingeben oder mehrere Zeilen mit STRG+V einfügen"
 				bind:value={devName}
 				on:keyup={keyupNameField}
@@ -109,10 +118,6 @@
 		</div>
 
 		<div class="dev-box-container">
-			{#if developers.length === 0}
-				<i>Noch niemanden hinzugefügt.</i>
-			{/if}
-			<div />
 			{#each developers as developer, i}
 				<div class="dev-box {checked[i] ? 'checked-item' : ''}">
 					<div>
@@ -131,6 +136,12 @@
 					</button>
 				</div>
 			{/each}
+
+			{#if developers.length === 0}
+				<i>Noch niemanden hinzugefügt.</i>
+			{:else}
+				<button type="button" on:click={clearDevs}>Alle löschen</button>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -177,6 +188,7 @@
 		display: inline-block;
 		padding: 15px 20px;
 		font-size: 19px;
+		max-width: 65%;
 	}
 
 	.dev-box-container {

@@ -59,8 +59,9 @@
 <style>
 	.timer-container {
 		margin-top: 40px;
-		margin-bottom: 25px;
+		margin-bottom: 50px;
 		margin-right: 0;
+		margin-left: 20px;
 		padding: 20px;
 		height: 0;
 		padding-bottom: 50%;

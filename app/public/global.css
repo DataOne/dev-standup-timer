@@ -64,6 +64,7 @@ button {
 	outline: none;
 	cursor: pointer;
 	margin: 0;
+	margin-top: 3px;
 }
 
 button:focus {
@@ -101,5 +102,9 @@ button:focus {
 
 	.column.first {
 		border-right: 1px solid #ececec;
+	}
+
+	.dev-name {
+		max-width: 100% !important;
 	}
 }
