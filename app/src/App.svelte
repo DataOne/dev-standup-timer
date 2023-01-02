@@ -15,6 +15,12 @@
 		saveDevsInLocalStorage();
 	}
 
+	function addDevs(devs) {
+		developers = [...developers, ...devs];
+		devName = "";
+		saveDevsInLocalStorage();
+	}
+
 	function removeDev(i) {
 		return () => {
 			developers = [...developers.slice(0, i), ...developers.slice(i + 1)];
@@ -43,6 +49,32 @@
 		}
 		checked = {};
 	}
+
+	function keydownNameField(/**@type KeyboardEvent*/ e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+
+			if (devName.trim() !== "") {
+				addDev();
+			}
+		}
+	}
+
+	function keyupNameField(/**@type KeyboardEvent*/ e) {
+		if (e.key == "v" && e.ctrlKey) {
+			addDevs(parsePastedInput(devName));
+		}
+	}
+
+	function parsePastedInput(/**@type string*/ pasted) {
+		pasted = pasted.replaceAll("\r", "");
+		const lines = pasted.split("\n");
+		const partsBeforeTab = lines
+			.map((line) => line.split("\t")[0])
+			.filter((line) => line !== "");
+		const uniqueNames = [...new Set(partsBeforeTab)];
+		return uniqueNames;
+	}
 </script>
 
 <div class="header">
@@ -59,13 +91,16 @@
 	<div class="column">
 		<h3>Teilnehmer</h3>
 		<div class="fixed controls flex mobile-column">
-			<input
+			<textarea
 				type="text"
 				placeholder="Name"
+				rows="1"
 				class="flex-1"
-				style="margin-right: 2px;"
+				style="margin-right: 2px; resize: none;"
+				title="Namen einzeln eingeben oder mehrere Zeilen mit STRG+V einfügen"
 				bind:value={devName}
-				on:keyup={(e) => e.key === "Enter" && addDev()}
+				on:keyup={keyupNameField}
+				on:keydown={keydownNameField}
 			/>
 			<div class="flex-1 flex mobile-column">
 				<button type="button" on:click={addDev}>Hinzufügen</button>
@@ -77,7 +112,7 @@
 			{#if developers.length === 0}
 				<i>Noch niemanden hinzugefügt.</i>
 			{/if}
-			<div></div>
+			<div />
 			{#each developers as developer, i}
 				<div class="dev-box {checked[i] ? 'checked-item' : ''}">
 					<div>
